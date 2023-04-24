@@ -1,21 +1,13 @@
-# Check_password
- Проверяет надежность вашего пароля методом брутфорса
+Brute-force password strength tester
 
-Главный файл main.cpp В этом файле указать в using_simbol[] (line 18) массив используемых символов.
-start_char и end_char - с какого по какой символ использовать. Так же можно изменить задержку между выводом информамции, для этого
-нужно изменить time_delay (line 16).
+The main file is main.cpp. Modify the using_simbol[] array (line 18) to specify the symbols to be used. Set start_char and end_char to indicate the range of symbols. You can also change the information output delay by adjusting time_delay (line 16).
 
-Программа имеет два режима работы:
-1) Полный перебор. Для скорости перебора программа начинает перебирать с определенного количества символов,
-т.е. если у вас 10-ти символьный пароль, то и перебор начнется с 10-ти символов.
+The program has two operation modes:
 
-2) Перебор в БД. Для этого использовалась база данных с ресурса pwned? Ссылка на скачивание: https://downloads.pwnedpasswords.com/passwords/pwned-passwords-1.0.txt.7z
-В строке 266 нужно указать имя файла. Т.к. в скачанном файле все пароли хранятся в хешах SHA1, была подключена функция по хешированию паролей
-(sha1.h и sha1.cpp соответсвенно). Так же в функции find_in_Data_Base(), в строке 298 нужно указать количество паролей в БД. Я поставил значение 320000000.
+    Full brute-force: For faster processing, the program starts with a specified number of characters. For example, if your password has 10 characters, the search will begin with 10 characters.
 
-Так же программа подсчитывает примерное время ожидания. Для этого подсчитывается количество иттераций за time_delay, а так же примерное количество необходимых иттераций(при переборе это (количество_символов^длину_пароля), а для поиска в бд это количество записей)
-Возврат в меню выбора осуществляется нажатием клавиши ESC.
-После завершения программы раз в time_delay секунд будет звуковое оповещение. Для этого решено было использовать слово ATTENTION которая 
-была зашифрована в азбуку морзе.
+    Database search: The program uses the pwned? database available for download at https://downloads.pwnedpasswords.com/passwords/pwned-passwords-1.0.txt.7z. Specify the file name on line 266. As the downloaded file contains SHA1 hashes of passwords, hashing functions are included (sha1.h and sha1.cpp). In the find_in_Data_Base() function, indicate the number of passwords in the database on line 298. The default value is 320,000,000.
 
-По завершению программы результат выводится в файл Password.txt
+The program estimates the waiting time by calculating the number of iterations per time_delay and the approximate number of necessary iterations (for brute-force, it's the number of symbols to the power of password length; for database search, it's the number of entries). Press ESC to return to the menu. Upon completion, the program will sound an alert every time_delay seconds. The word "ATTENTION" encoded in Morse code was chosen for this purpose.
+
+The result is saved to the Password.txt file upon program completion.
